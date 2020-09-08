@@ -1,6 +1,8 @@
 # nodejs-mqtt-iotsensor
 sensor emulator with raw MQTT - configure via env with broker creds and topic
 
+** Work in progress **
+
 ![mqtt](/assets/mqtt-hor-neg.png)
 
 A simple [MQTT](https://mqtt.org) publisher that generates a JSON observation document to an MQTT Broker - example below:

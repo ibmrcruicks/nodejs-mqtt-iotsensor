@@ -64,7 +64,8 @@ function tick(wait) {
                   settemp: settemp,
                   humidity: humidity,
                   wait: tock
-                }
+                },
+                timestamp: Math.floor(Date.now()/1000)
               };
   if(mqttClient.connected){
     mqttClient.publish(mqttPubTopic, JSON.stringify(msg), function() {
@@ -77,7 +78,7 @@ setTimeout(tick,tock,tock);
 
 function makeForm(msg){
   var html = "";
-  html += "<html><head><title>IOT Simulator</title></head><body>";
+  html += "<html><head><title>IOT Simulator</title><link rel=stylesheet href='/styles.css'></head><body>";
   html += "<!-- simple websocket listener to update page with newest event -->";
   html += "<script>";
   html += "var wsListener = new WebSocket(((window.location.protocol === 'https:') ? 'wss://' : 'ws://') + window.location.host + '" +wsPath+ "');"
@@ -90,20 +91,20 @@ function makeForm(msg){
   html += "<tr>"
   html += "<td><label for=timer>Publishing interval</label></td>";
   html += "<td><input type=range name=timer min=1 max=30 value="+tock/1000;
-  html += " oninput=\"o_timer.value=this.value;\"></td>";
-  html += "<td><output name=o_timer for=timer style=\"color:red;\">"+tock/1000+"</output></td>"
+  html += " oninput='o_timer.value=this.value;'></td>";
+  html += "<td><output name=o_timer for=timer>"+tock/1000+"</output></td>"
   html += "</tr>"
   html += "<tr>"
   html += "<td><label for=timer>Set temperature</label></td>";
   html += "<td><input type=range name=settemp min=-10 max=40 value="+settemp;
-  html += " oninput=\"o_settemp.value=this.value;\"></td>";
-  html += "<td><output name=o_settemp for=settemp style=\"color:red;\">"+settemp+"</output></td>"
+  html += " oninput='o_settemp.value=this.value;'></td>";
+  html += "<td><output name=o_settemp for=settemp>"+settemp+"</output></td>"
   html += "</tr>"
   html += "<tr>"
   html += "<td><label for=timer>Humidity</label></td>";
   html += "<td><input type=range name=humidity min=1 max=100 value="+humidity;
-  html +=" oninput=\"o_humidity.value=this.value;\"></td>";
-  html += "<td><output name=o_humidity for=humidity style=\"color:red;\">"+humidity+"</output></td>"
+  html +=" oninput='o_humidity.value=this.value;'></td>";
+  html += "<td><output name=o_humidity for=humidity>"+humidity+"</output></td>"
   html += "</tr>"
   html += "</table>"
   html += "<input type=submit value=Update>";
@@ -116,6 +117,7 @@ function makeForm(msg){
 // get ready to parse form submission
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
+app.use(express.static('assets'))
 
 //Send the form
 app.get('/', (req, res) => {

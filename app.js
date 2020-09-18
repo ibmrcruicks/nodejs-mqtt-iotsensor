@@ -82,7 +82,7 @@ function makeForm(msg){
   html += "<!-- simple websocket listener to update page with newest event -->";
   html += "<script>";
   html += "var wsListener = new WebSocket(((window.location.protocol === 'https:') ? 'wss://' : 'ws://') + window.location.host + '" +wsPath+ "');"
-  html += "wsListener.onmessage = function(event){console.log(event);document.getElementById('"+wsPath+"').innerHTML=event.data};"
+  html += "wsListener.onmessage = function(event){document.getElementById('"+wsPath+"').innerHTML=event.data};"
   html += "</script>";
   html += "<h1>"+clientId+"</h1>"
   html += msg || "&nbsp;";

@@ -1,5 +1,5 @@
 # nodejs-mqtt-iotsensor
-sensor emulator with raw MQTT - configure via env with broker creds and topic
+sensor emulator with raw MQTT - configure via env with broker credentials
 
 ** Work in progress **
 
@@ -19,22 +19,33 @@ A simple [MQTT](https://mqtt.org) publisher that generates a JSON observation do
 
 To run this , you will need a Node.js runtime (local, container, Cloud Foundry, for example), and the connection credentials for an MQTT Broker.
 
+Once running you will be able to control the simulated obvserations through a simple web page:
+![control page](/assets/control-page.png)
+
 ## Environment settings
 
 ```
-MQTT_BROKER_HOST=<hostname> || localhost
-MQTT_BROKER_PORT=<tcp-port#> || 1883
+MQTT_BROKER_URI=mqtt://<hostname>:<tcp-port> || localhost:1883
 MQTT_BROKER_USER=<username>
 MQTT_BROKER_PASS=<password>
-MQTT_PUB_TOPIC=<your topic hierarchy> || hello
-MQTT_PUB_TIMER=<publish interval> || 2000 (milliseconds)
 ```
 
 ## Running in the IBM Cloud
 
-This app can be run as a Cloud Foundry node.js application, by ]
-1. cloning this repository locally, and using the [ibmcloud cli](https://cloud.ibm.com/docs/cli?topic=cli-install-ibmcloud-cli) `ibmcloud cf push` command
+This app can be run as a Cloud Foundry node.js application, by 
+1. cloning this repository locally running the [ibmcloud cli](https://cloud.ibm.com/docs/cli?topic=cli-install-ibmcloud-cli) `ibmcloud cf push` command
 1. cloning/forking this repository to github, creating an [open toolchain], and linking to your copy of the repository
+
+In either case, you will need to update the manifest.yaml file to set the MQTT environment for connecting to your MQTT Broker.
 
 You can create a free MQTT Broker using [cloudamqp](https://cloud.ibm.com/catalog/services/cloudamqp), 
 use free cloud-based brokers like [eclipse IOT](https://mqtt.eclipse.org/), or [hivemq](https://www.hivemq.com/public-mqtt-broker/)
+
+## Running locally
+
+This app can be run locally, by
+1. clone this repository locally
+1. run `npm install`
+1. export the required environment variables for your MQTT Broker
+1. run `npm start`
+1. browse to the [control page](http://localhost:3000)

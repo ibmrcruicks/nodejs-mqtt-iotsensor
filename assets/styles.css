@@ -1,0 +1,22 @@
+output {
+  display: block;
+  background-color: darkcyan;
+  text-align:center;
+  vertical-align: bottom;
+  width: 75px;
+  height: 75px;
+  border-width: thick;
+  border-style: double;
+  border-color: white;
+  font-size: 60px;
+  color: white;
+}
+label {
+  color: blue;
+}
+h1 {
+  color: white;
+  background-color: black;
+  width: 50%;
+  height: 50px;
+}

@@ -1,3 +1,4 @@
+const DNS = require('dns');
 const MQTT = require('mqtt');
 const uri = require('url');
 const express = require('express');
@@ -10,9 +11,19 @@ const port = process.env.PORT || 3000;
 var mqttURI = uri.parse(process.env.MQTT_BROKER_URI || 'mqtt://localhost:1883');
 var auth = [process.env.MQTT_BROKER_USER,process.env.MQTT_BROKER_PASS];
 var url = "mqtt://" + mqttURI.host;
+console.log(mqttURI)
 const clientId = 'mqtt_iot_' + Math.random().toString(16).substr(2, 8);
 const mqttSubTopic = "hello" ;
 const mqttPubTopic = mqttSubTopic + "/" + clientId;
+
+DNS.lookup(mqttURI.hostname,function(err,addr,fam){
+  if(err || mqttURI.hostname === ''){
+    console.log("MQTT Broker host "+mqttURI.hostname+" does not resolve to IP address");
+    console.log(err);
+    process.exit(16);
+  }
+  console.log("MQTT Broker host "+mqttURI.hostname+" resolves to "+addr)
+});
 
 var mqttOptions = {
   port: mqttURI.port,

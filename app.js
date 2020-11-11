@@ -26,6 +26,9 @@ DNS.lookup(mqttURI.hostname,function(err,addr,fam){
 });
 
 var mqttOptions = {
+  protocol: mqttURI.protocol.split(":")[0],
+  rejectUnauthorized: false,
+  clean: true,
   port: mqttURI.port,
   clientId: clientId,
   username: auth[0],

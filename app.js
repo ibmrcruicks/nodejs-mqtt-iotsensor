@@ -49,6 +49,10 @@ wsServer.on('connection',function(socket){
 // Create a client connection
 var mqttClient = MQTT.connect(mqttUrl, mqttOptions);
 
+mqttClient.on("error", (e) => {
+  console.log("MQTT error." + e.message);
+});
+
 mqttClient.on('connect', function() { // When connected
   console.log("MQTT connected");
   mqttClient.subscribe(mqttSubTopic + "/#", function() {
